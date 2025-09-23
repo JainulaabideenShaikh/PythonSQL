@@ -14,3 +14,6 @@ def get_db():
     finally: 
         db.close()
 
+@app.post("/libraries/", response_model=schemas.Library)
+def create_library(library: schemas.LibraryCreate, db: Session = Depends(get_db)):
+    return crud.create_library(db, library)
