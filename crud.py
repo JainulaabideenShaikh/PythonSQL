@@ -14,3 +14,10 @@ def create_book(db: Session, book: schemas.BookCreate):
     db.commit()
     db.refresh(db_book)
     return db_book
+
+def create_book_detail(db: Session, book_id: int, detail: schemas.BookDetailCreate):
+    db_detail = models.BookDetail(**detail.dict(), book_id=book_id)
+    db.add(db_detail)
+    db.commit()
+    db.refresh(db_detail)
+    return db_detail
