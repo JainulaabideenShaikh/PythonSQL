@@ -29,3 +29,10 @@ def add_book_detail(book_id: int, detail: schemas.BookDetailCreate, db: Session 
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return crud.create_user(db, user)
+
+@app.post("/users/{user_id}/borrow/{book_id}", response_model=schemas.User)
+def borrow_book(user_id: int, book_id: int, db: Session = Depends(get_db)):
+    user = crud.borrow_book(db, user_id, book_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User or Book not found")
+    return user

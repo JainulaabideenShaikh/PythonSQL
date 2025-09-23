@@ -28,3 +28,11 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def borrow_book(db: Session, user_id: int, book_id: int):
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    book = db.query(models.Book).filter(models.Book.id == book_id).first()
+    if user and book:
+        user.books.append(book)
+        db.commit()
+    return user
