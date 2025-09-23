@@ -25,3 +25,7 @@ def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
 @app.post("/books/{book_id}/detail/", response_model=schemas.BookDetail)
 def add_book_detail(book_id: int, detail: schemas.BookDetailCreate, db: Session = Depends(get_db)):
     return crud.create_book_detail(db, book_id, detail)
+
+@app.post("/users/", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    return crud.create_user(db, user)

@@ -21,3 +21,10 @@ def create_book_detail(db: Session, book_id: int, detail: schemas.BookDetailCrea
     db.commit()
     db.refresh(db_detail)
     return db_detail
+
+def create_user(db: Session, user: schemas.UserCreate):
+    db_user = models.User(name=user.name)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
