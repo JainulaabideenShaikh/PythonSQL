@@ -17,3 +17,7 @@ def get_db():
 @app.post("/libraries/", response_model=schemas.Library)
 def create_library(library: schemas.LibraryCreate, db: Session = Depends(get_db)):
     return crud.create_library(db, library)
+
+@app.post("/books/", response_model=schemas.Book)
+def create_book(book: schemas.BookCreate, db: Session = Depends(get_db)):
+    return crud.create_book(db, book)
