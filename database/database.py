@@ -4,12 +4,15 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-user_name = os.getenv("USER_NAME")
-password = os.getenv("PASSWORD")
-DATABASE_URL = f"postgresql://{user_name}:{password}@localhost:5432/dj14"
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL not set in .env or environment variables.")
+
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
+

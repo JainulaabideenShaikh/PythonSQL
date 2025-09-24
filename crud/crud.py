@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-import models, schemas
+import models.models as models, schemas.schemas as schemas
 
 def create_library(db: Session, library: schemas.LibraryCreate):
     db_library = models.Library(name=library.name)
