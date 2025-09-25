@@ -6,12 +6,14 @@ from database.database import Base
 user_book_association = Table(
     'user_book',
     Base.metadata,
-    Column('user_id', ForeignKey('users.id'), primary_key=True), 
-    Column('book_id', ForeignKey('books.id'), primary_key=True)
+    Column('user_id', ForeignKey('alembic.users.id'), primary_key=True), 
+    Column('book_id', ForeignKey('alembic.books.id'), primary_key=True),
+    schema="alembic"
 )
 
 class Library(Base):
     __tablename__ = 'libraries'
+    __table_args__ = {"schema": "alembic"}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True)
 
@@ -19,9 +21,10 @@ class Library(Base):
 
 class Book(Base):
     __tablename__ = 'books'
+    __table_args__ = {"schema": "alembic"}
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
-    library_id = Column(Integer, ForeignKey("libraries.id"))
+    library_id = Column(Integer, ForeignKey("alembic.libraries.id"))
 
     library = relationship("Library", back_populates="books")  # Many-to-One
     detail = relationship("BookDetail", uselist=False, back_populates="book")  # One-to-One
@@ -29,15 +32,19 @@ class Book(Base):
 
 class BookDetail(Base):
     __tablename__ = 'book_details'
+    __table_args__ = {"schema": "alembic"}
     id = Column(Integer, primary_key=True, index=True)
     isbn = Column(String)
-    book_id = Column(Integer, ForeignKey("books.id"))
+    book_id = Column(Integer, ForeignKey("alembic.books.id"))
 
     book = relationship("Book", back_populates="detail")  # One-to-One
 
 class User(Base):
     __tablename__ = 'users'
+    __table_args__ = {"schema": "alembic"}
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
 
     books = relationship("Book", secondary=user_book_association, back_populates="users")  # Many-to-Many
+
+

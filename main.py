@@ -1,9 +1,19 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database.database import SessionLocal, engine
-import models.models as models, schemas.schemas as schemas, crud.crud as crud
+from database.database import SessionLocal,Base,engine
+from models import models 
+from schemas import schemas 
+from crud import crud
+# import models.models as models, schemas.schemas as schemas, crud.crud as crud
 
 app = FastAPI()
+
+# Base.metadata.create_all(bind=engine)
+print()
+print("Mian.py")
+print(Base.metadata)
+print("----------------------")
+print("Tables registered in metadata:", Base.metadata.tables.keys())
 
 def get_db():
     db = SessionLocal()
