@@ -4,7 +4,8 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from database.database import Base
-from models import models       #newly added
+from models import User,Library,Book,BookDetail       #newly added
+from models.association import user_book_association
 from alembic import context
 import os
 # this is the Alembic Config object, which provides
