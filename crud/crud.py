@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from models import User,Book,Library,BookDetail 
-import schemas.schemas as schemas, PythonSQL.models.library as library_m
+import schemas.schemas as schemas, models.library as library_m
 
 def create_library(db: Session, library: schemas.LibraryCreate):
     db_library = library_m.Library(name=library.name)
