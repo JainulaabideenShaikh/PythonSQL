@@ -5,7 +5,6 @@ from models.association import user_book_association
 
 class User(Base):
     __tablename__ = 'users'
-    # __table_args__ = {"schema": "alembic"}
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
